@@ -1,0 +1,43 @@
+package vn.localelink.entity.enums;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
+import vn.localelink.entity.User;
+
+import java.time.Instant;
+
+@Entity
+@Table(name = "Notifications")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class Notification {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "notification_id", nullable = false)
+    private Integer id;
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "receiver_id", nullable = false)
+    private User receiver;
+
+    @Lob
+    @Column(name = "content")
+    private String content;
+
+    @ColumnDefault("CURRENT_TIMESTAMP")
+    @Column(name = "create_at")
+    private Instant createAt;
+
+    @ColumnDefault("CURRENT_TIMESTAMP")
+    @Column(name = "update_at")
+    private Instant updateAt;
+
+}
