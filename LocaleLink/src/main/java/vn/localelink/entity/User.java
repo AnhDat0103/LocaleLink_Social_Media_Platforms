@@ -2,10 +2,8 @@ package vn.localelink.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import jdk.jfr.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +13,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import vn.localelink.entity.enums.Gender;
 import vn.localelink.entity.enums.ProviderEnum;
+import vn.localelink.entity.enums.StatusEnum;
 
 import java.util.Date;
 
@@ -40,7 +39,7 @@ public class User {
     @Size(min = 5, message = "Password must be at least 5 characters long")
     private String password;
 
-    @Column(name = "fullName")
+    @Column(name = "full_name")
     @Size(max = 50, message = "Full name must be less than 50 characters")
     @NotNull(message = "Full name cannot be null")
     private String fullName;
@@ -54,6 +53,7 @@ public class User {
     private String address;
 
     @Column(name = "gender")
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
     @Column(name = "avatar")
@@ -72,11 +72,13 @@ public class User {
     private Date updatedAt;
 
     @Column(name = "provider")
+    @Enumerated(EnumType.STRING)
     private ProviderEnum provider;
 
     @Lob
     @Column(name = "status")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private StatusEnum status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.SET_NULL)

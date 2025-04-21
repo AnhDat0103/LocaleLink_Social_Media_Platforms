@@ -11,6 +11,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.Instant;
+import java.util.Date;
 
 @Entity
 @Table(name = "Likes")
@@ -40,12 +41,12 @@ public class Like {
     @JoinColumn(name = "comment_id")
     private Comment comment;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "share_post_id")
-    private Post sharePost;
-
     @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "create_at")
-    private Instant createAt;
+    private Date createAt;
+
+    @ColumnDefault("CURRENT_TIMESTAMP")
+    @Column(name = "update_at")
+    private Date updateAt;
 
 }

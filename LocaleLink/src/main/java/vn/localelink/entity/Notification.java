@@ -1,4 +1,4 @@
-package vn.localelink.entity.enums;
+package vn.localelink.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
-import vn.localelink.entity.User;
 
 import java.time.Instant;
 
