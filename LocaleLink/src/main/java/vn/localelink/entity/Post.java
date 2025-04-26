@@ -2,6 +2,7 @@ package vn.localelink.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,13 +25,18 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id", nullable = false)
-    private Integer id;
+    private int postId;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @Null
+    @ManyToOne
+    @JoinColumn(name = "from_post_id")
+    private Post fromPostID;
 
     @NotNull
     @Lob
@@ -43,9 +49,9 @@ public class Post {
 
     @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "create_at")
-    private Instant createAt;
+    private Date createAt;
 
     @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "update_at")
-    private Instant updateAt;
+    private Date updateAt;
 }
