@@ -11,7 +11,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import vn.localelink.entity.enums.FriendshipEnum;
 
 @Entity
-@Table(name = "Friendships")
+@Table(name = "friendships")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -20,16 +20,16 @@ public class Friendship {
     @EmbeddedId
     private FriendshipId id;
 
-    @MapsId
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "user_id", insertable = false, updatable = false)
     private User user;
 
-    @MapsId
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "friend_id", nullable = false)
+    @JoinColumn(name = "friend_id", nullable = false, referencedColumnName = "user_id", insertable = false, updatable = false)
     private User friend;
 
     @NotNull

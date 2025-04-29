@@ -11,11 +11,10 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import java.time.Instant;
 import java.util.Date;
 
 @Entity
-@Table(name = "Comments")
+@Table(name = "comments")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -47,11 +46,10 @@ public class Comment {
     @Column(name = "image")
     private String image;
 
-    @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "create_at")
     private Date createAt;
 
-    @ColumnDefault("CURRENT_TIMESTAMP")
+
     @Column(name = "update_at")
     private Date updateAt;
 

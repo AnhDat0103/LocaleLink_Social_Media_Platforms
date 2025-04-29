@@ -16,7 +16,7 @@ public class FriendshipId implements java.io.Serializable {
     private static final long serialVersionUID = -9160555327699208122L;
     @NotNull
     @Column(name = "user_id", nullable = false)
-    private Integer userId;
+    private int userId;
 
     @NotNull
     @Column(name = "friend_id", nullable = false)

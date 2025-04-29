@@ -14,7 +14,7 @@ import java.time.Instant;
 import java.util.Date;
 
 @Entity
-@Table(name = "Likes")
+@Table(name = "likes")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -41,11 +41,11 @@ public class Like {
     @JoinColumn(name = "comment_id")
     private Comment comment;
 
-    @ColumnDefault("CURRENT_TIMESTAMP")
+
     @Column(name = "create_at")
     private Date createAt;
 
-    @ColumnDefault("CURRENT_TIMESTAMP")
+
     @Column(name = "update_at")
     private Date updateAt;
 

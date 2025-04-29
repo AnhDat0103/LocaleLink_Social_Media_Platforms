@@ -12,7 +12,7 @@ import org.hibernate.annotations.ColumnDefault;
 import java.time.Instant;
 
 @Entity
-@Table(name = "Logs")
+@Table(name = "logs")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -32,7 +32,7 @@ public class Log {
     @Column(name = "action")
     private String action;
 
-    @ColumnDefault("CURRENT_TIMESTAMP")
+
     @Column(name = "create_at")
     private Instant createAt;
 

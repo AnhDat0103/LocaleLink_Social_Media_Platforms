@@ -18,7 +18,7 @@ import vn.localelink.entity.enums.StatusEnum;
 import java.util.Date;
 
 @Entity
-@Table(name = "User_Profiles")
+@Table(name = "user_profiles")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -63,11 +63,9 @@ public class User {
     @Column(name = "birth_of_date")
     private Date dateOfBirth;
 
-    @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "create_at")
     private Date createdAt;
 
-    @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "update_at")
     private Date updatedAt;
 

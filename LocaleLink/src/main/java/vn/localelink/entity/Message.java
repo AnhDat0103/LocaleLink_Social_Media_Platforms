@@ -13,7 +13,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import java.time.Instant;
 
 @Entity
-@Table(name = "Messages")
+@Table(name = "messages")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -45,7 +45,7 @@ public class Message {
     @Column(name = "is_read")
     private Boolean isRead;
 
-    @ColumnDefault("CURRENT_TIMESTAMP")
+
     @Column(name = "create_at")
     private Instant createAt;
 

@@ -11,7 +11,7 @@ import org.hibernate.annotations.ColumnDefault;
 import java.time.Instant;
 
 @Entity
-@Table(name = "Notifications")
+@Table(name = "notifications")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -31,11 +31,11 @@ public class Notification {
     @Column(name = "content")
     private String content;
 
-    @ColumnDefault("CURRENT_TIMESTAMP")
+
     @Column(name = "create_at")
     private Instant createAt;
 
-    @ColumnDefault("CURRENT_TIMESTAMP")
+
     @Column(name = "update_at")
     private Instant updateAt;
 

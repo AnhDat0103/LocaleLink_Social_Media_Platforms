@@ -15,7 +15,7 @@ import java.time.Instant;
 import java.util.Date;
 
 @Entity
-@Table(name = "Posts")
+@Table(name = "posts")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -47,11 +47,11 @@ public class Post {
     @Column(name = "image")
     private String image;
 
-    @ColumnDefault("CURRENT_TIMESTAMP")
+
     @Column(name = "create_at")
     private Date createAt;
 
-    @ColumnDefault("CURRENT_TIMESTAMP")
+
     @Column(name = "update_at")
     private Date updateAt;
 }

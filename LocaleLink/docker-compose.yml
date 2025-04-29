@@ -1,0 +1,35 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql-container
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE_NAME}
+      DATA: ${DATABASE_USERNAME}
+      MYSQL_PASSWORD: ${DATABASE_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - localelink-nw
+    env_file:
+      - .env
+  web:
+    build: .
+    depends_on:
+      - db
+    container_name: localelink
+    ports:
+        - "8080:8080"
+    networks:
+      - localelink-nw
+    env_file:
+      - .env
+volumes:
+  mysql_data:
+
+networks:
+  localelink-nw:
+    driver: bridge
