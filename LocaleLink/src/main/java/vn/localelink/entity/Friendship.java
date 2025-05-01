@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import vn.localelink.entity.enums.FriendshipEnum;
+import vn.localelink.enums.FriendshipEnum;
 
 @Entity
 @Table(name = "friendships")

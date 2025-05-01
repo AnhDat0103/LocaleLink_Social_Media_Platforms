@@ -1,6 +1,6 @@
-package vn.localelink.dto.response;
+package vn.localelink.DTO.response;
 import lombok.*;
-import vn.localelink.entity.enums.Gender;
+import vn.localelink.enums.Gender;
 
 import java.util.Date;
 

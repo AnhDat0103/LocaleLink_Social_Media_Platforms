@@ -1,4 +1,4 @@
-package vn.localelink.entity.enums;
+package vn.localelink.enums;
 
 public enum StatusEnum {
     ACTIVE, INACTIVE, PENDING, BANNED;

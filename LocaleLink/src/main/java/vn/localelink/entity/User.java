@@ -8,12 +8,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import vn.localelink.entity.enums.Gender;
-import vn.localelink.entity.enums.ProviderEnum;
-import vn.localelink.entity.enums.StatusEnum;
+import vn.localelink.enums.Gender;
+import vn.localelink.enums.ProviderEnum;
+import vn.localelink.enums.StatusEnum;
 
 import java.util.Date;
 

@@ -3,7 +3,7 @@ package vn.localelink.service.serviceImp;
 import org.hibernate.mapping.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import vn.localelink.dto.response.UserResponse;
+import vn.localelink.DTO.response.UserResponse;
 import vn.localelink.entity.User;
 import vn.localelink.repository.UserRepository;
 import vn.localelink.service.UserService;

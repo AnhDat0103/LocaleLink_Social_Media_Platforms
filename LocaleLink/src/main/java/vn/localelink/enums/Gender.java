@@ -1,4 +1,4 @@
-package vn.localelink.entity.enums;
+package vn.localelink.enums;
 
 public enum Gender {
     MALE, FEMALE, OTHER;
