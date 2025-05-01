@@ -5,12 +5,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vn.localelink.DTO.response.UserResponse;
 import vn.localelink.entity.User;
+import vn.localelink.enums.ErrorEnum;
+import vn.localelink.exception.AppException;
 import vn.localelink.repository.UserRepository;
 import vn.localelink.service.UserService;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
@@ -45,5 +48,21 @@ public class UserServiceImp implements UserService {
             userResponse.setFullName(user.getFullName());
             return userResponse;
         }).collect(Collectors.toList());
+    }
+
+    @Override
+    public UserResponse findById(int id) throws AppException {
+        Optional<User> userOptional = userRepository.findById(id);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            UserResponse userResponse = new UserResponse();
+            userResponse.setId(user.getUserId());
+            userResponse.setEmail(user.getEmail());
+            userResponse.setAddress(user.getAddress());
+            userResponse.setFullName(user.getFullName());
+            return userResponse;
+        }else {
+            throw new AppException(ErrorEnum.USER_NOT_FOUND);
+        }
     }
 }

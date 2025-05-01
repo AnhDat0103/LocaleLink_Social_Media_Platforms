@@ -1,4 +1,6 @@
 package vn.localelink.DTO.response;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import vn.localelink.enums.Gender;
 
@@ -9,6 +11,8 @@ import java.util.Date;
 @AllArgsConstructor
 @Getter
 @Setter
+@Builder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserResponse {
 
     private int id;

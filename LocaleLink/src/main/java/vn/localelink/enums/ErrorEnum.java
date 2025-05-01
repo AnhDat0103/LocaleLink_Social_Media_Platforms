@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 public enum ErrorEnum {
     // 1xxx - validation
-    INVALID_FIELDS(1001,"Invalid fields"),
+    INVALID_FIELDS("1001","Invalid fields"),
 
     // 2xxx - authentication
 
@@ -15,11 +15,11 @@ public enum ErrorEnum {
 
 
     // 4xxx - not found
-    USER_NOT_FOUND(4001,"User not found");
+    USER_NOT_FOUND("4001","User not found");
 
     // 5xxx - server error
 
 
-    private final int code;
+    private final String code;
     private final String message;
 }

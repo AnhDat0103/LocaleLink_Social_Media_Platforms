@@ -1,14 +1,16 @@
 package vn.localelink.DTO.response;
 
-import com.fasterxml.jackson.annotation.JsonIncludeProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIncludeProperties
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@Builder
 public class ApiResponse<T> {
 
     private String status;

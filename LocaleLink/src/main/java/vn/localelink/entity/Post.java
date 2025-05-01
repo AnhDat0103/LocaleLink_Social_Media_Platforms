@@ -5,13 +5,12 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import java.time.Instant;
 import java.util.Date;
 
 @Entity
@@ -20,6 +19,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Getter
 @Size
+@Builder
 public class Post {
 
     @Id
