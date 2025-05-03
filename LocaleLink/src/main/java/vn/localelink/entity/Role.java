@@ -3,6 +3,7 @@ package vn.localelink.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import vn.localelink.enums.RoleEnum;
 
 @Entity
 @Table(name = "roles")
@@ -19,7 +20,8 @@ public class Role {
 
     @Column(name = "name", unique = true)
     @NotNull(message = "Role name cannot be null")
-    private String roleName;
+    @Enumerated(EnumType.STRING)
+    private RoleEnum roleName;
 
     @Lob
     @Column(name = "description")

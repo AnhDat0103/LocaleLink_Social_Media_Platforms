@@ -3,10 +3,8 @@ package vn.localelink.controller;
 import org.springframework.http.RequestEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import vn.localelink.DTO.request.UserRegister;
 import vn.localelink.DTO.response.ApiResponse;
 import vn.localelink.DTO.response.UserResponse;
 import vn.localelink.exception.AppException;
@@ -38,6 +36,15 @@ public class UserController {
     @GetMapping("/{id}")
     public ApiResponse<UserResponse> getUserById(@PathVariable int id) throws AppException {
         UserResponse user = userService.findById(id);
+        return ApiResponse.<UserResponse>builder()
+                .status("success")
+                .data(user)
+                .build();
+    }
+
+    @PostMapping
+    public ApiResponse<UserResponse> createUser(@RequestBody UserRegister userRegister) throws AppException {
+        UserResponse user = userService.createUser(userRegister);
         return ApiResponse.<UserResponse>builder()
                 .status("success")
                 .data(user)
