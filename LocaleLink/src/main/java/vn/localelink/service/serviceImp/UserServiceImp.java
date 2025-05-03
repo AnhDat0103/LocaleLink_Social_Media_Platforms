@@ -1,53 +1,39 @@
 package vn.localelink.service.serviceImp;
 
-import org.hibernate.mapping.Collection;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vn.localelink.DTO.response.UserResponse;
 import vn.localelink.entity.User;
 import vn.localelink.enums.ErrorEnum;
 import vn.localelink.exception.AppException;
+import vn.localelink.mapper.UserMapper;
 import vn.localelink.repository.UserRepository;
 import vn.localelink.service.UserService;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImp implements UserService {
 
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
-    public UserServiceImp(UserRepository userRepository) {
+    public UserServiceImp(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
+        this.userMapper = userMapper;
     }
 
 
     @Override
     public UserResponse findByEmail(String email) {
         User user = userRepository.findByEmail(email);
-        UserResponse userResponse = new UserResponse();
-        userResponse.setId(user.getUserId());
-        userResponse.setEmail(user.getEmail());
-        userResponse.setAddress(user.getAddress());
-        userResponse.setFullName(user.getFullName());
-        return userResponse;
+        return userMapper.userToUserResponse(user);
     }
 
     @Override
     public List<UserResponse> findAll() {
-        return userRepository.findAll().stream().map(user -> {
-            UserResponse userResponse = new UserResponse();
-            userResponse.setId(user.getUserId());
-            userResponse.setEmail(user.getEmail());
-            userResponse.setAddress(user.getAddress());
-            userResponse.setFullName(user.getFullName());
-            return userResponse;
-        }).collect(Collectors.toList());
+        return userRepository.findAll().stream().map(userMapper::userToUserResponse).collect(Collectors.toList());
     }
 
     @Override
@@ -55,12 +41,7 @@ public class UserServiceImp implements UserService {
         Optional<User> userOptional = userRepository.findById(id);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
-            UserResponse userResponse = new UserResponse();
-            userResponse.setId(user.getUserId());
-            userResponse.setEmail(user.getEmail());
-            userResponse.setAddress(user.getAddress());
-            userResponse.setFullName(user.getFullName());
-            return userResponse;
+            return userMapper.userToUserResponse(user);
         }else {
             throw new AppException(ErrorEnum.USER_NOT_FOUND);
         }
