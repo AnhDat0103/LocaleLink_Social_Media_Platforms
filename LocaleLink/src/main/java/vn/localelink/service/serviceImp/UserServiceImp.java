@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import vn.localelink.DTO.request.UserRegister;
 import vn.localelink.DTO.response.UserResponse;
 
-import vn.localelink.entity.Role;
 import vn.localelink.entity.User;
 import vn.localelink.enums.ErrorEnum;
 import vn.localelink.enums.ProviderEnum;
@@ -61,20 +60,28 @@ public class UserServiceImp implements UserService {
 
     @Override
     public UserResponse createUser(UserRegister userRegister) throws AppException {
-        if(userRepository.existsByEmail(userRegister.getEmail())){
+        if(userRepository.existsByEmail(userRegister.getEmail())) {
             throw new AppException(ErrorEnum.EMAIL_EXIST);
-        } else if(userRepository.existsByPhone(userRegister.getPhone())){
+        }
+        if(userRepository.existsByPhone(userRegister.getPhone())) {
             throw new AppException(ErrorEnum.PHONE_EXIST);
-        }else if(!userRegister.getPassword().equals(userRegister.getConfirmPassword())){
-            throw new AppException(ErrorEnum.PASSWORD_NOT_MATCH);
-        }else{
-            User user = userMapper.userRegisterToUser(userRegister);
-            user.setPassword(encoder.encode(user.getPassword()));
-            user.setProvider(ProviderEnum.LOCAL);
-            user.setStatus(StatusEnum.PENDING);
-            user.setRole(roleService.findRoleByName(RoleEnum.USER));
-            userRepository.save(user);
-            return userMapper.userToUserResponse(user);
+        }
+        User user = userMapper.userRegisterToUser(userRegister);
+        user.setPassword(encoder.encode(user.getPassword()));
+        user.setProvider(ProviderEnum.LOCAL);
+        user.setStatus(StatusEnum.PENDING);
+        user.setRole(roleService.findRoleByName(RoleEnum.USER));
+        userRepository.save(user);
+        return userMapper.userToUserResponse(user);
+    }
+
+    @Override
+    public void deleteUser(int id) throws  AppException {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new AppException(ErrorEnum.USER_NOT_FOUND));
+
+        if (user != null) {
+            userRepository.delete(user);
         }
     }
 }

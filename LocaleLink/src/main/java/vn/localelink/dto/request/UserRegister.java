@@ -7,18 +7,30 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import vn.localelink.enums.ErrorEnum;
 import vn.localelink.enums.Gender;
+import vn.localelink.validation.PasswordMatchConstant;
 
 
 import java.util.Date;
 
+
+
+
+
+@PasswordMatchConstant(
+        field = "password",
+        fieldMatch = "confirmPassword",
+        message = "Password and Confirm Password do not match"
+)
 @Data
 @AllArgsConstructor
 @Builder
+@NoArgsConstructor
 public class UserRegister {
 
-    @Email(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = ErrorEnum.INVALID_EMAIL_MESSAGE)
+    @Email(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = ErrorEnum.INVALID_EMAIL_MS)
     @NotNull(message = ErrorEnum.NOT_EMPTY_EMAIL)
     private String email;
 

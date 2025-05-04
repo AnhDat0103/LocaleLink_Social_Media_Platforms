@@ -1,5 +1,6 @@
 package vn.localelink.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.http.RequestEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,7 +44,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ApiResponse<UserResponse> createUser(@RequestBody UserRegister userRegister) throws AppException {
+    public ApiResponse<UserResponse> createUser(@Valid @RequestBody UserRegister userRegister) throws AppException {
         UserResponse user = userService.createUser(userRegister);
         return ApiResponse.<UserResponse>builder()
                 .status("success")
@@ -51,6 +52,14 @@ public class UserController {
                 .build();
     }
 
+    @DeleteMapping("/{id}")
+    public ApiResponse deleteUser(@PathVariable int id) throws AppException {
+        userService.deleteUser(id);
+        return ApiResponse.builder()
+                .status("success")
+                .message("User deleted successfully")
+                .build();
+    }
 
 
 

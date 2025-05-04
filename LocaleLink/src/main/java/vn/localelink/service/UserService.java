@@ -14,4 +14,6 @@ public interface UserService {
     UserResponse findById(int id) throws AppException;
 
     UserResponse createUser(UserRegister userRegister) throws AppException;
+
+    void deleteUser(int id) throws AppException;
 }

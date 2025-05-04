@@ -7,7 +7,7 @@ import lombok.Getter;
 public enum ErrorEnum {
     // 1xxx - validation
     INVALID_FIELDS("1001","Invalid fields"),
-    INVALID_EMAIL("1002","Invalid email"),
+    INVALID_EMAIL("1002","Email is invalid"),
 
     // 2xxx - authentication
     EMAIL_EXIST("2001","Email is used to register" ),
@@ -25,7 +25,7 @@ public enum ErrorEnum {
     // 5xxx - server error
 
     //message validation
-    public static final String INVALID_EMAIL_MESSAGE = "Email is invalid";
+    public static final String INVALID_EMAIL_MS = "Email is invalid";
     public static final String NOT_EMPTY_EMAIL = "Email must not be empty";
     public static final String NOT_EMPTY_PASSWORD = "Password must not be empty";
     public static final String INVALID_PASSWORD = "Password must be at least 5 characters";

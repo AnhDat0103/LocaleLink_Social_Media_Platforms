@@ -13,7 +13,7 @@ import vn.localelink.enums.ErrorEnum;
 @Builder
 public class UserAuthenticate {
 
-    @Email(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = ErrorEnum.INVALID_EMAIL_MESSAGE)
+    @Email(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = ErrorEnum.INVALID_EMAIL_MS)
     private String email;
     private String password;
 }

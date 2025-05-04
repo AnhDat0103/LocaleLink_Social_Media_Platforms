@@ -15,7 +15,7 @@ import java.util.Date;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserResponse {
 
-    private int id;
+    private int userId;
 
     private String email;
 
