@@ -2,8 +2,9 @@ package vn.localelink.service.serviceImp;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import vn.localelink.DTO.request.UserPatchUpdate;
 import vn.localelink.DTO.request.UserRegister;
-import vn.localelink.DTO.request.UserUpdate;
+import vn.localelink.DTO.request.UserPutUpdate;
 import vn.localelink.DTO.response.UserResponse;
 
 import vn.localelink.entity.User;
@@ -88,12 +89,42 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public UserResponse updateUser(int id, UserUpdate userUpdate) throws AppException {
+    public UserResponse updateUser(int id, UserPutUpdate userPutUpdate) throws AppException {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorEnum.USER_NOT_FOUND));
         if (user != null) {
             user.setUpdatedAt(new Date());
-            userRepository.save(userMapper.userUpdateToUser(user, userUpdate));
+            userRepository.save(userMapper.userUpdateToUser(user, userPutUpdate));
+        }
+        return userMapper.userToUserResponse(user);
+    }
+
+    @Override
+    public UserResponse partialUpdateUser(int id, UserPatchUpdate userPatchUpdate) throws AppException {
+        User user = userRepository.findById(id).orElseThrow(
+                () -> new AppException(ErrorEnum.USER_NOT_FOUND));
+
+        if (user != null) {
+            if(userPatchUpdate.getGender() != null) {
+                user.setGender(userPatchUpdate.getGender());
+            }
+            if(userPatchUpdate.getPhone() != null) {
+                user.setPhone(userPatchUpdate.getPhone());
+            }
+            if(userPatchUpdate.getAddress() != null) {
+                user.setAddress(userPatchUpdate.getAddress());
+            }
+            if(userPatchUpdate.getDateOfBirth() != null) {
+                user.setDateOfBirth(userPatchUpdate.getDateOfBirth());
+            }
+            if(userPatchUpdate.getFullName() != null) {
+                user.setFullName(userPatchUpdate.getFullName());
+            }
+            if(userPatchUpdate.getAvatar() != null) {
+                user.setAvatar(userPatchUpdate.getAvatar());
+            }
+            user.setUpdatedAt(new Date());
+            userRepository.save(user);
         }
         return userMapper.userToUserResponse(user);
     }

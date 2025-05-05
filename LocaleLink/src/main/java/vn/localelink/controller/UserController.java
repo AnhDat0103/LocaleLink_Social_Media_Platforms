@@ -2,8 +2,9 @@ package vn.localelink.controller;
 
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
+import vn.localelink.DTO.request.UserPatchUpdate;
+import vn.localelink.DTO.request.UserPutUpdate;
 import vn.localelink.DTO.request.UserRegister;
-import vn.localelink.DTO.request.UserUpdate;
 import vn.localelink.DTO.response.ApiResponse;
 import vn.localelink.DTO.response.UserResponse;
 import vn.localelink.exception.AppException;
@@ -50,8 +51,17 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ApiResponse<UserResponse> updateUser(@PathVariable int id, @Valid @RequestBody UserUpdate userUpdate) throws AppException {
-        UserResponse user = userService.updateUser(id, userUpdate);
+    public ApiResponse<UserResponse> updateUser(@PathVariable int id, @Valid @RequestBody UserPutUpdate userPutUpdate) throws AppException {
+        UserResponse user = userService.updateUser(id, userPutUpdate);
+        return ApiResponse.<UserResponse>builder()
+                .status("success")
+                .data(user)
+                .build();
+    }
+
+    @PatchMapping("/{id}")
+    public ApiResponse<UserResponse> partialUpdate(@PathVariable int id,@Valid @RequestBody UserPatchUpdate userPatchUpdate) throws AppException {
+        UserResponse user = userService.partialUpdateUser(id, userPatchUpdate);
         return ApiResponse.<UserResponse>builder()
                 .status("success")
                 .data(user)

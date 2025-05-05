@@ -1,6 +1,5 @@
 package vn.localelink.DTO.request;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotNull;
@@ -15,7 +14,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class UserUpdate {
+public class UserPutUpdate {
 
     @Size(max = 50, message = "Full name must be less than 50 characters")
     @NotNull(message = "Full name cannot be null")
