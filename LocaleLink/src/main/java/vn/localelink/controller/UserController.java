@@ -1,18 +1,15 @@
 package vn.localelink.controller;
 
 import jakarta.validation.Valid;
-import org.springframework.http.RequestEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import vn.localelink.DTO.request.UserRegister;
+import vn.localelink.DTO.request.UserUpdate;
 import vn.localelink.DTO.response.ApiResponse;
 import vn.localelink.DTO.response.UserResponse;
 import vn.localelink.exception.AppException;
 import vn.localelink.service.UserService;
 
 import java.util.List;
-import java.util.Locale;
 
 @RestController
 @RequestMapping("/users")
@@ -46,6 +43,15 @@ public class UserController {
     @PostMapping
     public ApiResponse<UserResponse> createUser(@Valid @RequestBody UserRegister userRegister) throws AppException {
         UserResponse user = userService.createUser(userRegister);
+        return ApiResponse.<UserResponse>builder()
+                .status("success")
+                .data(user)
+                .build();
+    }
+
+    @PutMapping("/{id}")
+    public ApiResponse<UserResponse> updateUser(@PathVariable int id, @Valid @RequestBody UserUpdate userUpdate) throws AppException {
+        UserResponse user = userService.updateUser(id, userUpdate);
         return ApiResponse.<UserResponse>builder()
                 .status("success")
                 .data(user)

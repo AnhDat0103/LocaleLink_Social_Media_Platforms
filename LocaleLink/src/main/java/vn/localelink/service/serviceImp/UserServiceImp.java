@@ -3,6 +3,7 @@ package vn.localelink.service.serviceImp;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import vn.localelink.DTO.request.UserRegister;
+import vn.localelink.DTO.request.UserUpdate;
 import vn.localelink.DTO.response.UserResponse;
 
 import vn.localelink.entity.User;
@@ -16,6 +17,7 @@ import vn.localelink.repository.UserRepository;
 import vn.localelink.service.RoleService;
 import vn.localelink.service.UserService;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -83,5 +85,16 @@ public class UserServiceImp implements UserService {
         if (user != null) {
             userRepository.delete(user);
         }
+    }
+
+    @Override
+    public UserResponse updateUser(int id, UserUpdate userUpdate) throws AppException {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new AppException(ErrorEnum.USER_NOT_FOUND));
+        if (user != null) {
+            user.setUpdatedAt(new Date());
+            userRepository.save(userMapper.userUpdateToUser(user, userUpdate));
+        }
+        return userMapper.userToUserResponse(user);
     }
 }

@@ -1,6 +1,8 @@
 package vn.localelink.service;
 
+import jakarta.validation.Valid;
 import vn.localelink.DTO.request.UserRegister;
+import vn.localelink.DTO.request.UserUpdate;
 import vn.localelink.DTO.response.UserResponse;
 import vn.localelink.exception.AppException;
 
@@ -16,4 +18,6 @@ public interface UserService {
     UserResponse createUser(UserRegister userRegister) throws AppException;
 
     void deleteUser(int id) throws AppException;
+
+    UserResponse updateUser(int id, @Valid UserUpdate userUpdate) throws AppException;
 }
