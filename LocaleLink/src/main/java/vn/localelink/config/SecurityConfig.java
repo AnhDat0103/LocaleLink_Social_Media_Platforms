@@ -3,9 +3,6 @@ package vn.localelink.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.ProviderManager;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -18,6 +15,11 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration()
 public class SecurityConfig {
 
+    private final CustomJwtDecoder customJwtDecoder;
+
+    public SecurityConfig(CustomJwtDecoder customJwtDecoder) {
+        this.customJwtDecoder = customJwtDecoder;
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -32,6 +34,9 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.POST,"/login", "/users").permitAll()
                                 .anyRequest().authenticated()
                 )
+                .oauth2ResourceServer(oath2 -> oath2.jwt(
+                        jwt -> jwt.decoder(customJwtDecoder)
+                ))
                 .csrf(AbstractHttpConfigurer::disable)
                 .build();
     }

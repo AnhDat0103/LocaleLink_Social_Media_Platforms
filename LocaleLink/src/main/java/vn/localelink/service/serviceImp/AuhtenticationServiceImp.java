@@ -31,10 +31,10 @@ public class AuhtenticationServiceImp implements AuthenticationService {
     private final PasswordEncoder encoder;
     public static final JWSAlgorithm JWS_ALGORITHM = JWSAlgorithm.HS512;
 
-    @Value("${spring.jwt.secret_key}")
+    @Value("${jwt.secret_key}")
     public String secretKey;
 
-    @Value("${spring.jwt.expiration_time}")
+    @Value("${jwt.expiration_time}")
     public long expirationTime;
 
     public AuhtenticationServiceImp(UserService userService, PasswordEncoder encoder) {
