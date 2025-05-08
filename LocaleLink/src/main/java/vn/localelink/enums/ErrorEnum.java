@@ -13,6 +13,7 @@ public enum ErrorEnum {
     EMAIL_EXIST("2001","Email is used to register" ),
     PHONE_EXIST("2002", "Phone is used to register."),
     PASSWORD_NOT_MATCH("2003", "Password and confirm password do not match."),
+    EMAIL_OR_PASSWORD_INCORRECT("2004", "Email or password is incorrect."),
     // 3xxx - authorization
 
 

@@ -1,0 +1,26 @@
+spring:
+    application:
+        name: LocaleLink
+    datasource:
+        url: ${DATABASE_URL:jdbc:mysql://localhost:3306/minisocialmedia}
+        username: ${DATABASE_USERNAME:root}
+        password: ${DATABASE_PASSWORD:0389618799@Cuc}
+        driver-class-name: com.mysql.cj.jdbc.Driver
+    thymeleaf:
+        cache: false
+        mode: HTML
+        prefix: classpath:/templates/
+        suffix: .html
+    jpa:
+      hibernate:
+        ddl-auto: update
+        show-sql: true
+        properties:
+          hibernate:
+            format_sql: true
+
+
+
+
+
+

@@ -5,13 +5,12 @@ import vn.localelink.DTO.request.UserPatchUpdate;
 import vn.localelink.DTO.request.UserPutUpdate;
 import vn.localelink.DTO.request.UserRegister;
 import vn.localelink.DTO.response.UserResponse;
+import vn.localelink.entity.User;
 import vn.localelink.exception.AppException;
 
 import java.util.List;
 
 public interface UserService {
-
-    UserResponse findByEmail(String email);
     List<UserResponse> findAll();
 
     UserResponse findById(int id) throws AppException;
@@ -23,4 +22,6 @@ public interface UserService {
     UserResponse updateUser(int id, @Valid UserPutUpdate userPutUpdate) throws AppException;
 
     UserResponse partialUpdateUser(int id, UserPatchUpdate userPatchUpdate) throws AppException;
+
+    User findByEmail(String email);
 }

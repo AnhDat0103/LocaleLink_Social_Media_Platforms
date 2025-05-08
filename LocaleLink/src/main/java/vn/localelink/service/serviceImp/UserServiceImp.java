@@ -40,9 +40,8 @@ public class UserServiceImp implements UserService {
 
 
     @Override
-    public UserResponse findByEmail(String email) {
-        User user = userRepository.findByEmail(email);
-        return userMapper.userToUserResponse(user);
+    public User findByEmail(String email){
+        return userRepository.findByEmail(email);
     }
 
     @Override
