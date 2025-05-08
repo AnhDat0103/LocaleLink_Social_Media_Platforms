@@ -40,8 +40,10 @@ public class UserServiceImp implements UserService {
 
 
     @Override
-    public User findByEmail(String email){
-        return userRepository.findByEmail(email);
+    public User findByEmail(String email) throws AppException {
+        return userRepository.findByEmail(email).orElseThrow(
+                () -> new AppException(ErrorEnum.USER_NOT_FOUND)
+        );
     }
 
     @Override

@@ -23,5 +23,5 @@ public interface UserService {
 
     UserResponse partialUpdateUser(int id, UserPatchUpdate userPatchUpdate) throws AppException;
 
-    User findByEmail(String email);
+    User findByEmail(String email) throws AppException;
 }
