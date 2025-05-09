@@ -2,7 +2,9 @@ package vn.localelink.service.serviceImp;
 
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
+import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
+import com.nimbusds.jwt.SignedJWT;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationServiceException;
@@ -13,14 +15,16 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import vn.localelink.DTO.request.AuthenticateRequest;
+import vn.localelink.DTO.request.IntrospectRequest;
 import vn.localelink.DTO.response.AuthenticationResponse;
-import vn.localelink.DTO.response.JwtVerifyResponse;
+import vn.localelink.DTO.response.IntrospectResponse;
 import vn.localelink.entity.User;
 import vn.localelink.exception.AppException;
 import vn.localelink.service.AuthenticationService;
 import vn.localelink.service.UserService;
 
 import java.nio.charset.StandardCharsets;
+import java.text.ParseException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
@@ -102,9 +106,20 @@ public class AuthenticationServiceImp implements AuthenticationService {
     }
 
     @Override
-    public JwtVerifyResponse verifyToken(String token) {
-
-        return null;
+    public IntrospectResponse verifyToken(IntrospectRequest introspectRequest) throws JOSEException, ParseException {
+        JWSVerifier verifier = new MACVerifier(secretKey.getBytes(StandardCharsets.UTF_8));
+        SignedJWT signedJWT = SignedJWT.parse(introspectRequest.getToken());
+        if(signedJWT.verify(verifier)) {
+            Date expirationTime = signedJWT.getJWTClaimsSet().getExpirationTime();
+            if(expirationTime.after(new Date())) {
+                return IntrospectResponse.builder()
+                        .isValid(true)
+                        .build();
+            }
+        }
+        return IntrospectResponse.builder()
+                .isValid(false)
+                .build();
     }
 
 

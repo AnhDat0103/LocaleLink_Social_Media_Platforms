@@ -1,16 +1,20 @@
 package vn.localelink.controller;
 
+import com.nimbusds.jose.JOSEException;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vn.localelink.DTO.request.AuthenticateRequest;
+import vn.localelink.DTO.request.IntrospectRequest;
 import vn.localelink.DTO.response.ApiResponse;
 import vn.localelink.DTO.response.AuthenticationResponse;
-import vn.localelink.DTO.response.JwtVerifyResponse;
+import vn.localelink.DTO.response.IntrospectResponse;
 import vn.localelink.exception.AppException;
 import vn.localelink.service.AuthenticationService;
+
+import java.text.ParseException;
 
 @RestController()
 @RequestMapping("/api/v1/auth")
@@ -34,13 +38,13 @@ public class AuthenticationController {
     }
 
     @PostMapping("/verify-token")
-    public ApiResponse<JwtVerifyResponse> verifyToken(@RequestBody String token) throws AppException {
-        JwtVerifyResponse jwtVerifyResponse = authenticationService.verifyToken(token);
-        return ApiResponse.<JwtVerifyResponse>builder()
+    public ApiResponse<IntrospectResponse> verifyToken(@RequestBody IntrospectRequest introspectRequest) throws ParseException, JOSEException {
+        IntrospectResponse introspectResponse = authenticationService.verifyToken(introspectRequest);
+        return ApiResponse.<IntrospectResponse>builder()
                 .status("success")
                 .code("200")
-                .message("Authenticated.")
-                .data(jwtVerifyResponse)
+                .message(introspectResponse.isValid() ? "Token is valid." : "Token is invalid.")
+                .data(introspectResponse)
                 .build();
     }
 

@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class JwtVerifyRequest {
+public class IntrospectRequest {
     private String token;
 }

@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class JwtVerifyResponse {
+public class IntrospectResponse {
     boolean isValid;
 }
