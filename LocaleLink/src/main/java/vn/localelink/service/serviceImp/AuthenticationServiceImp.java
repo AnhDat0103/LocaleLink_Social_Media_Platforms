@@ -6,10 +6,15 @@ import com.nimbusds.jwt.JWTClaimsSet;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationServiceException;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import vn.localelink.DTO.request.AuthenticateRequest;
 import vn.localelink.DTO.response.AuthenticationResponse;
+import vn.localelink.DTO.response.JwtVerifyResponse;
 import vn.localelink.entity.User;
 import vn.localelink.exception.AppException;
 import vn.localelink.service.AuthenticationService;
@@ -20,15 +25,15 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
-
 import static vn.localelink.enums.ErrorEnum.EMAIL_OR_PASSWORD_INCORRECT;
 
 @Service
 @Slf4j
-public class AuhtenticationServiceImp implements AuthenticationService {
+public class AuthenticationServiceImp implements AuthenticationService {
 
     private final UserService userService;
     private final PasswordEncoder encoder;
+    private final AuthenticationManagerBuilder authenticationManagerBuilder;
     public static final JWSAlgorithm JWS_ALGORITHM = JWSAlgorithm.HS512;
 
     @Value("${jwt.secret_key}")
@@ -37,9 +42,10 @@ public class AuhtenticationServiceImp implements AuthenticationService {
     @Value("${jwt.expiration_time}")
     public long expirationTime;
 
-    public AuhtenticationServiceImp(UserService userService, PasswordEncoder encoder) {
+    public AuthenticationServiceImp(UserService userService, PasswordEncoder encoder, AuthenticationManagerBuilder authenticationManagerBuilder) {
         this.userService = userService;
         this.encoder = encoder;
+        this.authenticationManagerBuilder = authenticationManagerBuilder;
     }
 
     private String generateToken(String email) {
@@ -68,17 +74,37 @@ public class AuhtenticationServiceImp implements AuthenticationService {
 
     @Override
     public AuthenticationResponse authenticate(AuthenticateRequest authenticateRequest) throws AppException {
-        User user = userService.findByEmail(authenticateRequest.getEmail());
-
-        if(encoder.matches(authenticateRequest.getPassword(), user.getPassword())) {
+        try {
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                    authenticateRequest.getEmail(),
+                    authenticateRequest.getPassword()
+            );
+            authenticationManagerBuilder.getObject().authenticate(authenticationToken).isAuthenticated();
+            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            User user = userService.findByEmail(authenticateRequest.getEmail());
             String token = generateToken(user.getEmail());
             return AuthenticationResponse.builder()
                     .token(token)
                     .build();
-        } else {
+        } catch (BadCredentialsException ex) {
             throw new AppException(EMAIL_OR_PASSWORD_INCORRECT);
         }
-
+//        User user = userService.findByEmail(authenticateRequest.getEmail());
+//
+//        if(encoder.matches(authenticateRequest.getPassword(), user.getPassword())) {
+//            String token = generateToken(user.getEmail());
+//            return AuthenticationResponse.builder()
+//                    .token(token)
+//                    .build();
+//        } else {
+//            throw new AppException(EMAIL_OR_PASSWORD_INCORRECT);
+//        }
     }
+
+    @Override
+    public JwtVerifyResponse verifyToken(String token) {
+        return null;
+    }
+
 
 }
