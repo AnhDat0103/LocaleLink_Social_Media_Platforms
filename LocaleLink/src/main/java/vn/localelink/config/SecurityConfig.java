@@ -20,8 +20,7 @@ public class SecurityConfig {
     private final CustomJwtDecoder customJwtDecoder;
 
     private final String[] PUBLIC_ENDPOINTS = {
-            "/api/v1/auth/authenticate", "/api/v1/auth/verify-token",
-            "/users"
+            "/api/v1/auth/authenticate", "/api/v1/auth/verify-token"
     };
 
     public SecurityConfig(CustomJwtDecoder customJwtDecoder) {

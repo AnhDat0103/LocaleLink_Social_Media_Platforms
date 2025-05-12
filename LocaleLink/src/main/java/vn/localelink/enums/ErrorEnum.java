@@ -19,7 +19,8 @@ public enum ErrorEnum {
 
     // 4xxx - not found
     USER_NOT_FOUND("4001","User not found"),
-    ROLE_NOT_FOUND("4002","Role not found");
+    ROLE_NOT_FOUND("4002","Role not found"),
+    POST_NOT_FOUND("4003"," Post not found" );
 
     ;
 
@@ -35,6 +36,9 @@ public enum ErrorEnum {
     public static final String INVALID_PHONE = "Phone number must be between 10 and 12 digits";
     public static final String INVALID_ADDRESS = "Address must be less than 255 characters";
     public static final String INVALID_URL_AVATAR = "Avatar URL must be less than 255 characters";
+    public static final String NOT_EMPTY_USER = "User cannot be null";
+    public static final String NOT_EMPTY_CONTENT = "Content cannot be null";
+    public static final String FAILED_DELETE_POST = "Failed to delete post";
 
     private final String code;
     private final String message;
