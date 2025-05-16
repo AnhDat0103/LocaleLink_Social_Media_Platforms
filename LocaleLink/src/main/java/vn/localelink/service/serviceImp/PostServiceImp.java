@@ -15,6 +15,7 @@ import vn.localelink.service.PostService;
 
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class PostServiceImp implements PostService {
@@ -65,5 +66,10 @@ public class PostServiceImp implements PostService {
                 () -> new AppException(ErrorEnum.POST_NOT_FOUND)
         );
         postRepository.delete(post);
+    }
+
+    @Override
+    public List<PostResponse> handleFindAll() {
+        return postRepository.findAll().stream().map(postMapper::toPostResponse).toList();
     }
 }

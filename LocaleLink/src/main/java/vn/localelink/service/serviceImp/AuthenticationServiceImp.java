@@ -11,6 +11,7 @@ import org.springframework.security.authentication.AuthenticationServiceExceptio
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -83,8 +84,8 @@ public class AuthenticationServiceImp implements AuthenticationService {
                     authenticateRequest.getEmail(),
                     authenticateRequest.getPassword()
             );
-            authenticationManagerBuilder.getObject().authenticate(authenticationToken).isAuthenticated();
-            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            Authentication authentication =  authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
             User user = userService.findByEmail(authenticateRequest.getEmail());
             String token = generateToken(user.getEmail());
             return AuthenticationResponse.builder()

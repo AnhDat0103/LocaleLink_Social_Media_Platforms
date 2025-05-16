@@ -2,6 +2,7 @@ package vn.localelink.DTO.request;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +15,7 @@ import vn.localelink.enums.ErrorEnum;
 @Data
 @Builder
 public class PostRequest {
-    @NotNull(message = ErrorEnum.NOT_EMPTY_USER)
+
     private int userId;
 
     @NotNull(message = ErrorEnum.NOT_EMPTY_CONTENT)

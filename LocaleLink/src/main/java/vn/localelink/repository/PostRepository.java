@@ -12,8 +12,8 @@ import java.util.Optional;
 public interface PostRepository extends JpaRepository<Post, Integer> {
 
 @Query(
-                "SELECT new vn.localelink.DTO.response.PostResponse(p.user.email, p.fromPostID, p.content, p.image, p.createAt, p.updateAt) " +
-                "FROM Post p WHERE p.postId = :id"
+                value = "SELECT new vn.localelink.DTO.response.PostResponse(p.user.email, p.fromPostID, p.content, p.image, p.createAt, p.updateAt)" +
+                "FROM Post p WHERE "
 )
     Optional<PostResponse> findPostDtoById(Integer id);
 }

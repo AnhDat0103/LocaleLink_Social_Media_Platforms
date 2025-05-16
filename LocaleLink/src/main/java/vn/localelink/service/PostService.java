@@ -6,6 +6,8 @@ import vn.localelink.DTO.request.PostRequest;
 import vn.localelink.DTO.response.PostResponse;
 import vn.localelink.exception.AppException;
 
+import java.util.List;
+
 public interface PostService {
     PostResponse save(@Valid PostRequest postRequest) throws AppException;
 
@@ -14,4 +16,6 @@ public interface PostService {
     PostResponse handleFindById(Integer id) throws AppException;
 
     void handleRemovePost(Integer id) throws AppException;
+
+    List<PostResponse> handleFindAll();
 }
